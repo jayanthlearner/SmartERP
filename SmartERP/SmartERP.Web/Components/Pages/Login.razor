@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<h3>Login</h3>
+
+<input @bind="email" placeholder="Email" />
+<input @bind="password" type="password" placeholder="Password" />
+<button @onclick="Login">Login</button>
+
+@code {
+    string email = "", password = "";
+
+    async Task Login()
+    {
+        if (await Auth.Login(Http, email, password))
+            Nav.NavigateTo("/dashboard");
+    }
+}

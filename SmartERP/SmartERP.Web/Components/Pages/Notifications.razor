@@ -1,0 +1,27 @@
+﻿@page "/notifications"
+@inject NotificationApi Api
+
+<h3>Notifications</h3>
+
+@if (items == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var n in items)
+        {
+            <li>@n.Message</li>
+        }
+    </ul>
+}
+
+@code {
+    List<Notification>? items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await Api.GetMine();
+    }
+}

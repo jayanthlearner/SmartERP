@@ -1,0 +1,25 @@
+﻿@page "/payroll"
+@inject PayrollApi Api
+
+<h3>Payroll Records</h3>
+
+@if (items == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @foreach (var p in items)
+    {
+        <p>@p.EmployeeId - Net: ₹@p.NetSalary</p>
+    }
+}
+
+@code {
+    List<Payroll>? items;
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await Api.GetMonthly(9, 2025);
+    }
+}

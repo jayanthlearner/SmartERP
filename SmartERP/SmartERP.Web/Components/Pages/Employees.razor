@@ -1,0 +1,27 @@
+﻿@page "/employees"
+@inject EmployeeApi Api
+
+<h3>Employees</h3>
+
+@if (employees == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var e in employees)
+        {
+            <li>@e.Name - @e.Department - ₹@e.Salary</li>
+        }
+    </ul>
+}
+
+@code {
+    List<Employee>? employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await Api.GetAll();
+    }
+}
